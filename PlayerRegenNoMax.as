@@ -17,12 +17,12 @@ CCVar@ g_HPRegen;
 CCVar@ g_HP_Regen_Amnt;
 CCVar@ g_HP_Regen_Delay;
 CCVar@ g_HP_Regen_Max;
-CCVar@ g_HP_Max;
+//CCVar@ g_HP_Max;
 CCVar@ g_APRegen;
 CCVar@ g_AP_Regen_Amnt;
 CCVar@ g_AP_Regen_Delay;
 CCVar@ g_AP_Regen_Max;
-CCVar@ g_AP_Max;
+//CCVar@ g_AP_Max;
 //Config
 
 //End Config
@@ -34,19 +34,19 @@ void PluginInit()
   g_Module.ScriptInfo.SetContactInfo("http://forums.svencoop.com/showthread.php/44242-Plugin-Player-Regen-(HP-and-AP-Regen)");
 
   g_Hooks.RegisterHook(Hooks::Game::MapChange,@ResetCVars);
-  g_Hooks.RegisterHook(Hooks::Player::PlayerSpawn,@SetMax);
+  //g_Hooks.RegisterHook(Hooks::Player::PlayerSpawn,@SetMax);  // -- Removed to prevent max HP/AP override
 
   //DO NOT CHANGE DEFAULT VALUES.
   @g_HPRegen = CCVar("hpregen", true, "Enable or Disable HP Regen", ConCommandFlag::AdminOnly,@refreshTimers);
   @g_HP_Regen_Amnt = CCVar("hpamnt", 1, "How much HP to regen per delay", ConCommandFlag::AdminOnly);
   @g_HP_Regen_Delay = CCVar("hpdelay", 3.0, "Delay before giving HP again", ConCommandFlag::AdminOnly,@refreshTimers);
   @g_HP_Regen_Max = CCVar("hpmaxregen", 40, "Max amount of health player should regen to. Never set above max.", ConCommandFlag::AdminOnly);
-  @g_HP_Max = CCVar("hpmax", 100, "Max amount of health player should have", ConCommandFlag::AdminOnly); // -- Added by Komerad
+  //@g_HP_Max = CCVar("hpmax", 100, "Max amount of health player should have", ConCommandFlag::AdminOnly); // -- Added by Komerad
   @g_APRegen = CCVar("apregen", true, "Enable or Disable AP Regen", ConCommandFlag::AdminOnly,@refreshTimers);
   @g_AP_Regen_Amnt = CCVar("apamnt", 1, "How much AP to regen per delay", ConCommandFlag::AdminOnly);
   @g_AP_Regen_Delay = CCVar("apdelay" ,3.0, "Delay before giving AP again", ConCommandFlag::AdminOnly,@refreshTimers);
   @g_AP_Regen_Max = CCVar("apmaxregen", 15, "Max amount of armor player should regen to. Never set above max.", ConCommandFlag::AdminOnly);
-  @g_AP_Max = CCVar("apmax", 100, "Max amount of armor player should have", ConCommandFlag::AdminOnly); // -- Added by Komerad
+  //@g_AP_Max = CCVar("apmax", 100, "Max amount of armor player should have", ConCommandFlag::AdminOnly); // -- Added by Komerad
 
 /* Just in case as_reloadplugin(s) is called
 
@@ -139,14 +139,14 @@ void refreshTimers(CCVar@ cvar, const string& in szOldValue, float flOldValue)
 }
 
 //Main Functions
-HookReturnCode SetMax(CBasePlayer@ pPlayer)
+/*HookReturnCode SetMax(CBasePlayer@ pPlayer)
 {
 
   pPlayer.pev.max_health = g_HP_Max.GetInt();
   pPlayer.pev.armortype = g_AP_Max.GetInt();
   return HOOK_HANDLED;
 
-}
+}*/
 
 void GiveAP()
 {
